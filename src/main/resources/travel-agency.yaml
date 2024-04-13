@@ -1,0 +1,323 @@
+openapi: 3.0.1
+info:
+  title: Travel Agency API
+  version: 1.0.0
+  contact:
+    name: Gulyakin Egor
+    url: https://github.com/arhostcode
+paths:
+  /tour/list:
+    get:
+      summary: Список доступных туров
+      parameters:
+        - name: start_date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: tour_place
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Список туров
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tour'
+        '400':
+          description: Некорректные параметры запроса
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+  /tour/book/{tour_id}:
+    post:
+      summary: Забронировать тур
+      parameters:
+        - name: tour_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Тур забронирован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tour'
+        '400':
+          description: Некорректные параметры запроса
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+  /tour/get/{tour_id}:
+    get:
+      summary: Получить информацию о туре
+      parameters:
+        - name: tour_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Информация о туре
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tour'
+        '400':
+          description: Некорректные параметры запроса
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+  /tour/create/:
+    post:
+      summary: Создать информацию о туре
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TourCreateRequest'
+      responses:
+        '200':
+          description: Информация о туре
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tour'
+        '400':
+          description: Некорректные параметры запроса
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+  /tour/cancel/{tour_id}:
+    delete:
+      summary: Продать бронь
+      parameters:
+        - name: tour_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Тур продан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tour'
+        '400':
+          description: Некорректные параметры запроса
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+  /tour-place/list:
+    get:
+      summary: Список доступных туристических мест
+      responses:
+        '200':
+          description: Список туристических мест
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TourPlace'
+        '400':
+          description: Некорректные параметры запроса
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+  /tour-place/create:
+    post:
+      requestBody:
+        $ref: '#/components/schemas/TourPlaceCreateRequest'
+      summary: Создать туристическое место
+      responses:
+        '200':
+          description: Туристическое место создано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TourPlace'
+        '400':
+          description: Некорректные параметры запроса
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+  /tour-place/remove/{tour_place_id}:
+    delete:
+      parameters:
+        - name: tour_place_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      summary: Удалить туристическое место
+      responses:
+        '200':
+          description: Туристическое место удалено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TourPlace'
+        '400':
+          description: Некорректные параметры запроса
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+  /tour-place/{tour_place_id}:
+    get:
+      parameters:
+        - name: tour_place_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      summary: Получить туристическое место
+      responses:
+        '200':
+          description: Туристическое место
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TourPlace'
+        '400':
+          description: Некорректные параметры запроса
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+components:
+  schemas:
+    ApiErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+          format: int32
+    Tour:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        start_date:
+          type: string
+          format: date
+        finish_date:
+          type: string
+          format: date
+        tour_place:
+          $ref: '#/components/schemas/TourPlace'
+        hotel:
+          $ref: '#/components/schemas/Hotel'
+        flight:
+          $ref: '#/components/schemas/Flight'
+        price:
+          type: number
+          format: float
+    TourPlace:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        city:
+          type: string
+    Flight:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        start_date:
+          type: string
+          format: datetime
+        finish_date:
+          type: string
+          format: datetime
+        price:
+          description: Стоимость за перелёт
+          type: number
+          format: float
+    Hotel:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        location:
+          type: string
+        city:
+          type: string
+        price:
+          description: Стоимость за ночь
+          type: number
+          format: float
+    TourPlaceCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        city:
+          type: string
+    TourCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        tour_place:
+          type: string
+          format: uuid
+        start_date:
+          type: string
+          format: date
+        finish_date:
+          type: string
+          format: date
+        flight:
+          type: string
+          format: uuid
+        hotel:
+          type: string
+          format: uuid
+        price:
+          type: number
+          format: float
