@@ -259,6 +259,10 @@ components:
         id:
           type: string
           format: uuid
+        from:
+          type: string
+        to:
+          type: string
         start_date:
           type: string
           format: datetime
