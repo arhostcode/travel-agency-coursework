@@ -3,3 +3,13 @@ spring:
     name: travel-agency-coursework
   liquibase:
     enabled: false
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/travelagency
+    username: postgres
+    password: postgres

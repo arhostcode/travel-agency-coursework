@@ -24,7 +24,7 @@ services:
       - --password=postgres
       - update
     volumes:
-      - ./travelagency/migrations:/liquibase/changelog
+      - ./migrations:/liquibase/changelog
     networks:
       - backend_travel_agency
 volumes:
