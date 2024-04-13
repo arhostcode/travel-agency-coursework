@@ -1,6 +1,7 @@
 package ru.ardyc.travelagency.controller;
 
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.ardyc.travelagency.dto.response.TourResponse;
 
@@ -20,6 +21,7 @@ public class TourController {
     }
 
     @GetMapping("/{tour_id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public TourResponse getTour(
             @PathVariable(name = "tour_id") String tourId
     ) {

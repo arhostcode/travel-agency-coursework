@@ -1,0 +1,27 @@
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "email": "arhostcode@gmail.com",
+  "password": "12345678",
+  "full_name": "Egor Gulyakin"
+}
+###
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "arhostcode@gmail.com",
+  "password": "12345678"
+}
+
+
+###
+@token=eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhcmhvc3Rjb2RlQGdtYWlsLmNvbSIsImlhdCI6MTcxMzAyMDQzNX0._vZ2H_2Fg_2-ArJoUqRA4w8O864Pm4rcmVlQ1eUiquzJbk2hgri43v6VNcnzh3S1
+GET http://localhost:8080/tour-place/list
+Authorization: Bearer {{token}}
+
+###
+@tour_id=0
+GET http://localhost:8080/tour/{{tour_id}}
+Authorization: Bearer {{token}}

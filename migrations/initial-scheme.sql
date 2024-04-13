@@ -43,5 +43,14 @@ CREATE TABLE IF NOT EXISTS tour
     flight      UUID REFERENCES flight (id)
 );
 
+CREATE TABLE IF NOT EXISTS user_entity
+(
+    id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    full_name TEXT    NOT NULL,
+    email     TEXT    NOT NULL,
+    password  TEXT    NOT NULL,
+    is_admin  BOOLEAN NOT NULL
+)
+
 
 --rollback drop table tour, tour_place, hotel, flight;

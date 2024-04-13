@@ -7,9 +7,12 @@ spring:
     database: postgresql
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/travelagency
     username: postgres
     password: postgres
+security:
+  jwt:
+    secret-key: 094a35068b383cda42e8f9d9a5b72a0e77738d5430fea0a92f9a2cddbe06a596
