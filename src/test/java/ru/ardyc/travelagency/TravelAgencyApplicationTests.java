@@ -1,10 +1,10 @@
-package ru.ardyc.travelagencycoursework;
+package ru.ardyc.travelagency;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TravelAgencyCourseworkApplicationTests {
+class TravelAgencyApplicationTests {
 
     @Test
     void contextLoads() {

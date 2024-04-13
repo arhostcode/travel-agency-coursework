@@ -1,0 +1,34 @@
+services:
+  postgresql:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: travelagency
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgresql_travel_agency:/var/lib/postgresql/data
+    networks:
+      - backend_travel_agency
+
+  liquibase-migrations:
+    image: liquibase/liquibase:4.25
+    depends_on:
+      - postgresql
+    command:
+      - --changelog-file=master.xml
+      - --driver=org.postgresql.Driver
+      - --url=jdbc:postgresql://postgresql:5432/travelagency
+      - --username=postgres
+      - --password=postgres
+      - update
+    volumes:
+      - ./travelagency/migrations:/liquibase/changelog
+    networks:
+      - backend_travel_agency
+volumes:
+  postgresql_travel_agency: { }
+
+networks:
+  backend_travel_agency: { }

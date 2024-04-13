@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: travel-agency-coursework
+  liquibase:
+    enabled: false

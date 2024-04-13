@@ -1,4 +1,4 @@
-package ru.ardyc.travelagencycoursework;
+package ru.ardyc.travelagency;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -8,7 +8,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @TestConfiguration(proxyBeanMethods = false)
-public class TestTravelAgencyCourseworkApplication {
+public class TestTravelAgencyApplication {
 
     @Bean
     @ServiceConnection
@@ -17,7 +17,7 @@ public class TestTravelAgencyCourseworkApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.from(TravelAgencyCourseworkApplication::main).with(TestTravelAgencyCourseworkApplication.class).run(args);
+        SpringApplication.from(TravelAgencyApplication::main).with(TestTravelAgencyApplication.class).run(args);
     }
 
 }
