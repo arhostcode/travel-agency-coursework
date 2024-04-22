@@ -6,6 +6,7 @@ Content-Type: application/json
   "password": "12345678",
   "full_name": "Egor Gulyakin"
 }
+
 ###
 POST http://localhost:8080/auth/login
 Content-Type: application/json
@@ -17,11 +18,41 @@ Content-Type: application/json
 
 
 ###
-@token=eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhcmhvc3Rjb2RlQGdtYWlsLmNvbSIsImlhdCI6MTcxMzAyMDQzNX0._vZ2H_2Fg_2-ArJoUqRA4w8O864Pm4rcmVlQ1eUiquzJbk2hgri43v6VNcnzh3S1
-GET http://localhost:8080/tour-place/list
+@token=eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhcmhvc3Rjb2RlQGdtYWlsLmNvbSIsInVzZXJfaWQiOiI3ZTMwZjE1NS1iOTkwLTQ2NDgtYWI0NC0zZDkyMWRhZGRhNTgiLCJpYXQiOjE3MTM3ODc5NDZ9.fMRT9BLrhNq6whKJ__LZnzb2nlBI7unPSdyjTfzFoWIHfiL8E7b1Bi8ZAm-YIma9
+GET http://localhost:8080/api/v1/tour-place/list
 Authorization: Bearer {{token}}
 
 ###
-@tour_id=0
-GET http://localhost:8080/tour/{{tour_id}}
+POST http://localhost:8080/api/v1/tour-place/create
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "city": "Moscow",
+  "description": "Moscow Cremlin",
+  "name": "Cremlin2"
+}
+
+###
+GET http://localhost:8080/api/v1/tour/list
+
+###
+POST http://localhost:8080/api/v1/hotel
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "MoscowClub",
+  "description": "Sample hotel",
+  "city": "Moscow",
+  "location": "Vernadskogo 86",
+  "image": "https://flame.ardyc.ru/generate",
+  "price": 1000
+}
+
+###
+GET http://localhost:8080/api/v1/hotel/list
+
+###
+POST http://localhost:8080/api/v1/hotel/book/3eb1dbcf-4254-40b7-b963-fe6222e804f2?user_token={{token}}
 Authorization: Bearer {{token}}

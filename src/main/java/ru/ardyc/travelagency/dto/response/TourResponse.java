@@ -1,8 +1,11 @@
 package ru.ardyc.travelagency.dto.response;
 
+import lombok.Builder;
+
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+@Builder
 public record TourResponse(
         UUID id,
         String name,

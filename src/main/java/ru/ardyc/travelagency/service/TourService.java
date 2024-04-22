@@ -15,9 +15,9 @@ public interface TourService {
 
     TourResponse createTour(TourCreateRequest request);
 
-    TourResponse removeTour(UUID tourId, User user);
+    TourResponse removeTour(UUID tourId);
 
-    TourResponse bookTour(UUID tourId, User user);
+    TourResponse bookTour(UUID tourId, String userToken);
 
-    TourResponse cancelTour(UUID tourId, User user);
+    TourResponse cancelTour(UUID tourId, String userToken);
 }

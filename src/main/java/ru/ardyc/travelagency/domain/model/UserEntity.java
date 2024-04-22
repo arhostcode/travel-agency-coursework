@@ -33,13 +33,32 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_hotel",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "hotel_id"))
+    private List<HotelEntity> hotels;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_flight",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "flight_id"))
+    private List<FlightEntity> flights;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_tour",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tour_id"))
+    private List<TourEntity> tours;
+
     private boolean isAdmin = false;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(
-                isAdmin ? new SimpleGrantedAuthority("ROLE_ADMIN") : new SimpleGrantedAuthority("ROLE_USER")
-        );
+        return isAdmin ? List.of(
+                new SimpleGrantedAuthority("ROLE_ADMIN"),
+                new SimpleGrantedAuthority("ROLE_USER")
+        ) : List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
@@ -71,6 +90,42 @@ public class UserEntity implements UserDetails {
         return UserResponse.builder()
                 .id(id)
                 .fullName(fullName)
+                .hotels(hotels.stream().map(HotelEntity::toResponse).toList())
+                .flights(flights.stream().map(FlightEntity::toResponse).toList())
                 .email(email);
+    }
+
+    public void bookHotel(HotelEntity hotel) {
+        hotels.add(hotel);
+        hotel.getUsers().add(this);
+    }
+
+    public void cancelHotel(HotelEntity hotel) {
+        hotels.remove(hotel);
+        hotel.getUsers().remove(this);
+    }
+
+    public void bookFlight(FlightEntity flight) {
+        flights.add(flight);
+        flight.getUsers().add(this);
+    }
+
+    public void cancelFlight(FlightEntity flight) {
+        flights.remove(flight);
+        flight.getUsers().remove(this);
+    }
+
+    public void bookTour(TourEntity tour) {
+        tour.getUsers().add(this);
+        tours.add(tour);
+        bookHotel(tour.getHotel());
+        bookFlight(tour.getFlight());
+    }
+
+    public void cancelTour(TourEntity tour) {
+        tour.getUsers().remove(this);
+        tours.remove(tour);
+        cancelHotel(tour.getHotel());
+        cancelFlight(tour.getFlight());
     }
 }

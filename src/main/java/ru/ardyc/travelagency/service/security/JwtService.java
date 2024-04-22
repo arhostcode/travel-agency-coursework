@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -23,27 +22,27 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public UUID extractUserId(String token) {
+        return UUID.fromString(extractClaim(token, claims -> claims.get("user_id", String.class)));
+    }
+
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(String name) {
-        return generateToken(new HashMap<>(), name);
-    }
-
-    public String generateToken(Map<String, Object> extraClaims, String name) {
-        return buildToken(extraClaims, name);
+    public String generateToken(String name, UUID id) {
+        return buildToken(name, id);
     }
 
     private String buildToken(
-            Map<String, Object> extraClaims,
-            String name
+            String name,
+            UUID id
     ) {
         return Jwts
                 .builder()
-                .claims(extraClaims)
                 .subject(name)
+                .claim("user_id", id)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .signWith(getSignInKey())
                 .compact();
@@ -51,7 +50,7 @@ public class JwtService {
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()));
+        return username.equals(userDetails.getUsername());
     }
 
     private Claims extractAllClaims(String token) {

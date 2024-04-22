@@ -29,9 +29,9 @@ public class DefaultAuthenticationService implements AuthenticationService {
                         request.password()
                 )
         );
-        return userRepository.findByEmail(request.email())
-                .orElseThrow().toResponse()
-                .jwtToken(jwtService.generateToken(request.email()))
+        var user = userRepository.findByEmail(request.email()).orElseThrow();
+        return user.toResponse()
+                .jwtToken(jwtService.generateToken(user.getEmail(), user.getId()))
                 .build();
     }
 
@@ -46,7 +46,7 @@ public class DefaultAuthenticationService implements AuthenticationService {
                 .password(passwordEncoder.encode(request.password()))
                 .build();
         return userRepository.save(user).toResponse()
-                .jwtToken(jwtService.generateToken(user.getEmail()))
+                .jwtToken(jwtService.generateToken(user.getEmail(), user.getId()))
                 .build();
     }
 }

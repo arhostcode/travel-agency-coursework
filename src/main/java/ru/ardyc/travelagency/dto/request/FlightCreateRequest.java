@@ -1,13 +1,8 @@
-package ru.ardyc.travelagency.dto.response;
-
-import lombok.Builder;
+package ru.ardyc.travelagency.dto.request;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
-@Builder
-public record FlightResponse(
-        UUID id,
+public record FlightCreateRequest(
         String from,
         String to,
         OffsetDateTime startDate,
