@@ -1,11 +1,12 @@
 <template>
   <div class="tour-search">
     <div class="searching">
-      <input type="text" v-model="searchQuery" @input="search" placeholder="Введите место или дату" class="search-input">
+      <input type="text" v-model="searchQuery" @input="search" placeholder="Введите место или дату"
+             class="search-input">
       <div class="search-results">
         <ul v-if="searchResults.length" class="result-list">
           <li v-for="tour in searchResults" :key="tour.id" class="search-result" @click="showDescription(tour)">
-            {{ tour.name }} - {{ tour.date }}
+            {{ tour.name }} - {{ tour.startDate }} - {{ tour.tourPlace.name }}
           </li>
         </ul>
         <p v-else class="no-results">Нет результатов для отображения</p>
@@ -17,38 +18,53 @@
       </div>
     </div>
     <div v-if="selectedTour" class="tour-description">
+      <h2>Описание тура</h2>
       <h3>{{ selectedTour.name }}</h3>
       <p>{{ selectedTour.description }}</p>
+      <h3>Турплощадка</h3>
+      <p>{{ selectedTour.tourPlace.name }}</p>
+      <h3>Отель</h3>
+      <p>Название - {{ selectedTour.hotel.name }}</p>
+      <p>{{ selectedTour.hotel.description }}</p>
+      <p>Находится: {{ selectedTour.hotel.location }}</p>
+      <p>Цена за ночь: {{ selectedTour.hotel.price }}$</p>
+      <h3>Перелёт</h3>
+      <p>Из {{ selectedTour.flight.from }}</p>
+      <p>В {{ selectedTour.flight.to }}</p>
+      <p>Время отправления: {{ selectedTour.flight.startDate }}</p>
+      <p>Время прибытия: {{ selectedTour.flight.finishDate }}</p>
+      <p>Цена: {{ selectedTour.flight.price }}$</p>
       <button @click="closeDescription">Закрыть</button>
+      <button v-if="token" @click="bookTour">Забронировать тур</button>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
       searchQuery: '',
-      tours: [
-        {id: 1, name: 'Париж', date: '10 мая 2024'},
-        {id: 2, name: 'Лондон', date: '15 июня 2024'},
-        {id: 3, name: 'Рим', date: '20 июля 2024'},
-        {id: 3, name: 'Рим', date: '20 июля 2024'},
-        {id: 3, name: 'Рим', date: '20 июля 2024'},
-        {id: 3, name: 'Рим', date: '20 июля 2024'},
-        {id: 3, name: 'Рим', date: '20 июля 2024'}
-      ],
+      tours: [],
       selectedTour: null,
       currentPage: 1,
+      token: null,
       pageSize: 5,
       totalPagesCount: 0
     };
+  },
+  mounted() {
+    this.fetchTours();
+    this.token = localStorage.getItem('token')
   },
   computed: {
     searchResults() {
       let searchedTours = this.tours.filter(tour =>
           tour.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          tour.date.includes(this.searchQuery)
+          tour.startDate.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          tour.tourPlace.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
       const startIndex = (this.currentPage - 1) * this.pageSize;
       const endIndex = startIndex + this.pageSize;
@@ -56,10 +72,19 @@ export default {
       return searchedTours.slice(startIndex, endIndex);
     },
     pages() {
-      return Array.from({ length: this.totalPagesCount }, (_, index) => index + 1);
+      return Array.from({length: this.totalPagesCount}, (_, index) => index + 1);
     }
   },
   methods: {
+    fetchTours() {
+      axios.get('http://localhost:8080/api/v1/tour/list')
+          .then(response => {
+            this.tours = response.data;
+          })
+          .catch(error => {
+            console.error('Error fetching tours:', error);
+          });
+    },
     search() {
     },
     showDescription(tour) {
@@ -70,6 +95,14 @@ export default {
     },
     changePage(page) {
       this.currentPage = page;
+    },
+    bookTour() {
+      let config = {
+        headers: {
+          "Authorization": "Bearer " + this.token,
+        }
+      }
+      axios.post('http://localhost:8080/api/v1/tour/book/' + this.selectedTour.id, {}, config)
     }
   }
 };
@@ -196,5 +229,10 @@ export default {
 
 .pagination .active {
   background-color: #ccc;
+}
+
+button {
+  margin-top: 20px;
+  margin-right: 20px;
 }
 </style>

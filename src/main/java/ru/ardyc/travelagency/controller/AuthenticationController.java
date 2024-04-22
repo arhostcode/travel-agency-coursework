@@ -2,18 +2,19 @@ package ru.ardyc.travelagency.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import ru.ardyc.travelagency.dto.request.AuthenticationRequest;
 import ru.ardyc.travelagency.dto.request.RegistrationRequest;
 import ru.ardyc.travelagency.dto.response.UserResponse;
 import ru.ardyc.travelagency.service.AuthenticationService;
 
+import java.util.Arrays;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
+@CrossOrigin
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
@@ -31,5 +32,12 @@ public class AuthenticationController {
         return ResponseEntity.ok()
                 .header("Authorization", "Bearer " + user.jwtToken())
                 .body(user);
+    }
+
+    @GetMapping("/me")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<UserResponse> getUser(@RequestHeader("Authorization") String token) {
+        var user = authenticationService.getUser(token.split(" ")[1]);
+        return ResponseEntity.ok().body(user);
     }
 }

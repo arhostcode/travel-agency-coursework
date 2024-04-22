@@ -15,30 +15,30 @@ VALUES
 -- Добавление в таблицу hotel
 INSERT INTO hotel (name, description, city, location, image, price)
 VALUES
-    ('Paris Luxury Suites', 'A lavish hotel offering panoramic views of Paris and the Eiffel Tower', 'Paris', 'City Center', 'paris_luxury_suites.jpg', 300.00),
-    ('Grand Canyon Resort', 'A comfortable resort with breathtaking views of the Grand Canyon', 'Arizona', 'Canyon Rim', 'grand_canyon_resort.jpg', 250.00),
-    ('Great Wall Inn', 'A cozy inn located near the Great Wall of China', 'Beijing', 'Wallside Village', 'great_wall_inn.jpg', 150.00),
-    ('Sagrada Hotel', 'A boutique hotel with views of the Sagrada Familia', 'Barcelona', 'Eixample District', 'sagrada_hotel.jpg', 200.00),
-    ('Machu Picchu Lodge', 'A rustic lodge nestled in the Andes Mountains near Machu Picchu', 'Cusco', 'Mountain Valley', 'machu_picchu_lodge.jpg', 180.00),
-    ('Taj Mahal Palace', 'An elegant palace hotel offering views of the Taj Mahal', 'Agra', 'Riverfront Boulevard', 'taj_mahal_palace.jpg', 350.00),
-    ('Sydney Harbor Hotel', 'A modern hotel overlooking the Sydney Opera House', 'Sydney', 'Harborfront Avenue', 'sydney_harbor_hotel.jpg', 280.00),
-    ('Pyramid Resort', 'A unique resort with views of the Pyramids of Giza', 'Cairo', 'Desert Oasis', 'pyramid_resort.jpg', 220.00),
-    ('Liberty Plaza Hotel', 'A contemporary hotel conveniently located near the Statue of Liberty', 'New York', 'Downtown', 'liberty_plaza_hotel.jpg', 320.00),
-    ('Petra Oasis Resort', 'A luxurious resort offering relaxation near Petra', 'Maan', 'Desert Retreat', 'petra_oasis_resort.jpg', 270.00);
+    ('Paris Luxury Suites', 'A lavish hotel offering panoramic views of Paris and the Eiffel Tower', 'Paris', 'City Center', 'https://www.lux-mag.com/wp-content/uploads/2017/04/IMG_0728.jpg', 300.00),
+    ('Grand Canyon Resort', 'A comfortable resort with breathtaking views of the Grand Canyon', 'Arizona', 'Canyon Rim', 'https://i.pinimg.com/originals/64/5e/6a/645e6a1fe21cdba08994be5ed787fea0.jpg', 250.00),
+    ('Great Wall Inn', 'A cozy inn located near the Great Wall of China', 'Beijing', 'Wallside Village', 'https://avatars.mds.yandex.net/i?id=bbd7dcefa229ef6baf2d0ca6286efa7132a78ce3-12605172-images-thumbs&n=13', 150.00),
+    ('Sagrada Hotel', 'A boutique hotel with views of the Sagrada Familia', 'Barcelona', 'Eixample District', 'https://www.multitour.ru/files/imgs/252456976e66c73bff7b8aa59e94dc16c3cfcb0e.jpeg', 200.00),
+    ('Machu Picchu Lodge', 'A rustic lodge nestled in the Andes Mountains near Machu Picchu', 'Cusco', 'Mountain Valley', 'https://static.tildacdn.com/tild3433-3635-4265-a337-343735333537/2023-08-06_11-15-16_.jpg', 180.00),
+    ('Taj Mahal Palace', 'An elegant palace hotel offering views of the Taj Mahal', 'Agra', 'Riverfront Boulevard', 'http://www.hulutrip.com/uploadfileen/hotel/agoda/177/1770bfda8920597bb7274146db58e0c4.jpg', 350.00),
+    ('Sydney Harbor Hotel', 'A modern hotel overlooking the Sydney Opera House', 'Sydney', 'Harborfront Avenue', 'https://i.travelapi.com/hotels/1000000/30000/22800/22718/99ae6229_z.jpg', 280.00),
+    ('Pyramid Resort', 'A unique resort with views of the Pyramids of Giza', 'Cairo', 'Desert Oasis', 'https://niood.com/wp-content/uploads/2021/03/le-meridien-pyramids-niood.jpg', 220.00),
+    ('Liberty Plaza Hotel', 'A contemporary hotel conveniently located near the Statue of Liberty', 'New York', 'Downtown', 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/151616172.jpg?k=b758fd59170c16aba3145db80bc3890cf3089402d59a63eaf72c73f0d3d4ec73&o=&hp=1', 320.00),
+    ('Petra Oasis Resort', 'A luxurious resort offering relaxation near Petra', 'Maan', 'Desert Retreat', 'https://globe.by/wp-content/uploads/2021/12/GRAND-OASIS-4_1.jpg', 270.00);
 
 -- Добавление в таблицу flight
-INSERT INTO flight (from_place, to_place, start_date, finish_date, price)
+INSERT INTO flight (name, from_place, to_place, start_date, finish_date, price)
 VALUES
-    ('New York', 'Paris', '2024-05-01 08:00:00+00', '2024-05-01 13:00:00+00', 500.00),
-    ('Phoenix', 'Arizona', '2024-05-02 09:00:00+00', '2024-05-02 11:00:00+00', 150.00),
-    ('Beijing', 'Cusco', '2024-05-03 10:00:00+00', '2024-05-03 20:00:00+00', 800.00),
-    ('Barcelona', 'Sydney', '2024-05-04 11:00:00+00', '2024-05-04 23:00:00+00', 700.00),
-    ('Lima', 'Machu Picchu', '2024-05-05 12:00:00+00', '2024-05-05 14:00:00+00', 100.00),
-    ('Delhi', 'Agra', '2024-05-06 13:00:00+00', '2024-05-06 15:00:00+00', 80.00),
-    ('Auckland', 'Sydney', '2024-05-07 14:00:00+00', '2024-05-07 16:00:00+00', 120.00),
-    ('Cairo', 'New York', '2024-05-08 15:00:00+00', '2024-05-08 19:00:00+00', 600.00),
-    ('Paris', 'Dubai', '2024-05-09 16:00:00+00', '2024-05-09 18:00:00+00', 400.00),
-    ('Petra', 'Rome', '2024-05-10 17:00:00+00', '2024-05-10 19:00:00+00', 300.00);
+    ('F001','New York', 'Paris', '2024-05-01 08:00:00+00', '2024-05-01 13:00:00+00', 500.00),
+    ('F005','Phoenix', 'Arizona', '2024-05-02 09:00:00+00', '2024-05-02 11:00:00+00', 150.00),
+    ('F006','Beijing', 'Cusco', '2024-05-03 10:00:00+00', '2024-05-03 20:00:00+00', 800.00),
+    ('F002','Barcelona', 'Sydney', '2024-05-04 11:00:00+00', '2024-05-04 23:00:00+00', 700.00),
+    ('F001','Lima', 'Machu Picchu', '2024-05-05 12:00:00+00', '2024-05-05 14:00:00+00', 100.00),
+    ('F001','Delhi', 'Agra', '2024-05-06 13:00:00+00', '2024-05-06 15:00:00+00', 80.00),
+    ('F003','Auckland', 'Sydney', '2024-05-07 14:00:00+00', '2024-05-07 16:00:00+00', 120.00),
+    ('F005','Cairo', 'New York', '2024-05-08 15:00:00+00', '2024-05-08 19:00:00+00', 600.00),
+    ('F007','Paris', 'Dubai', '2024-05-09 16:00:00+00', '2024-05-09 18:00:00+00', 400.00),
+    ('F009','Petra', 'Rome', '2024-05-10 17:00:00+00', '2024-05-10 19:00:00+00', 300.00);
 
 -- Добавление в таблицу tour
 INSERT INTO tour (name, description, start_date, finish_date, tour_place, hotel, flight)

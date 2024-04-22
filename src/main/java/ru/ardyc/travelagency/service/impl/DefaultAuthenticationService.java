@@ -49,4 +49,9 @@ public class DefaultAuthenticationService implements AuthenticationService {
                 .jwtToken(jwtService.generateToken(user.getEmail(), user.getId()))
                 .build();
     }
+
+    @Override
+    public UserResponse getUser(String token) {
+        return userRepository.findByEmail(jwtService.extractUsername(token)).orElseThrow().toResponse().build();
+    }
 }

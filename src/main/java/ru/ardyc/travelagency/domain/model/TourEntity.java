@@ -6,6 +6,7 @@ import ru.ardyc.travelagency.dto.response.TourResponse;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -54,4 +55,22 @@ public class TourEntity {
                 .build();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TourEntity that = (TourEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(startDate, that.startDate) && Objects.equals(finishDate, that.finishDate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hashCode(id);
+        result = 31 * result + Objects.hashCode(name);
+        result = 31 * result + Objects.hashCode(description);
+        result = 31 * result + Objects.hashCode(startDate);
+        result = 31 * result + Objects.hashCode(finishDate);
+        return result;
+    }
 }

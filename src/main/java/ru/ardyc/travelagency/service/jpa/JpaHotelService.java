@@ -62,6 +62,7 @@ public class JpaHotelService implements HotelService {
         var userId = jwtService.extractUserId(userToken);
         var user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         var hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new RuntimeException("Hotel not found"));
+        if (user.getHotels().contains(hotel)) return hotel.toResponse();
         user.bookHotel(hotel);
         userRepository.save(user);
         return hotel.toResponse();

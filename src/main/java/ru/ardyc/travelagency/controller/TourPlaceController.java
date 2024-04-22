@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/tour-place")
+@CrossOrigin
 @RequiredArgsConstructor
 public class TourPlaceController {
     private final TourPlaceService tourPlaceService;

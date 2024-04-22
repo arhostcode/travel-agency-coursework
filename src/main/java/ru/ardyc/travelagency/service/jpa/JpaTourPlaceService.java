@@ -1,5 +1,6 @@
 package ru.ardyc.travelagency.service.jpa;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.ardyc.travelagency.domain.model.TourPlaceEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class JpaTourPlaceService implements TourPlaceService {
 

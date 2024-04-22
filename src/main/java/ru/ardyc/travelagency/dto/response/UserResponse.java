@@ -12,6 +12,7 @@ public record UserResponse(
         String email,
         @JsonProperty("full_name") String fullName,
         @JsonProperty("jwt_token") String jwtToken,
+        List<TourResponse> tours,
         List<HotelResponse> hotels,
         List<FlightResponse> flights
 ) {

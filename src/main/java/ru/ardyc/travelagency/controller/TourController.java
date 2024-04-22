@@ -14,6 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/tour")
+@CrossOrigin
 @RequiredArgsConstructor
 public class TourController {
     private final TourService tourService;
@@ -34,20 +35,22 @@ public class TourController {
     }
 
     @PostMapping("/book/{tour_id}")
+    @PreAuthorize("hasRole('USER')")
     public TourResponse bookTour(
             @PathVariable(name = "tour_id") String tourId,
-            @RequestParam(name = "user_token") String userToken
+            @RequestHeader(name = "Authorization") String userToken
     ) {
-        return tourService.bookTour(UUID.fromString(tourId), userToken);
+        return tourService.bookTour(UUID.fromString(tourId), userToken.split(" ")[1]);
     }
 
 
     @DeleteMapping("/cancel/{tour_id}")
+    @PreAuthorize("hasRole('USER')")
     public TourResponse cancelTour(
             @PathVariable(name = "tour_id") String tourId,
-            @RequestParam(name = "user_token") String userToken
+            @RequestHeader(name = "Authorization") String userToken
     ) {
-        return tourService.cancelTour(UUID.fromString(tourId), userToken);
+        return tourService.cancelTour(UUID.fromString(tourId), userToken.split(" ")[1]);
     }
 
     @PostMapping("/create")

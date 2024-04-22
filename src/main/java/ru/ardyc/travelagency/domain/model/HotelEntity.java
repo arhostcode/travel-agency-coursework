@@ -6,6 +6,7 @@ import lombok.*;
 import ru.ardyc.travelagency.dto.response.HotelResponse;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -44,5 +45,26 @@ public class HotelEntity {
                 .image(image)
                 .price(price)
                 .build();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        HotelEntity that = (HotelEntity) o;
+        return Double.compare(price, that.price) == 0 && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(city, that.city) && Objects.equals(location, that.location) && Objects.equals(image, that.image);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hashCode(id);
+        result = 31 * result + Objects.hashCode(name);
+        result = 31 * result + Objects.hashCode(description);
+        result = 31 * result + Objects.hashCode(city);
+        result = 31 * result + Objects.hashCode(location);
+        result = 31 * result + Objects.hashCode(image);
+        result = 31 * result + Double.hashCode(price);
+        return result;
     }
 }

@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/flight")
 public class FlightController {
     private final FlightService flightService;
@@ -57,9 +58,9 @@ public class FlightController {
     @PreAuthorize("hasRole('USER')")
     public FlightResponse bookFlight(
             @PathVariable(name = "flight_id") String flightId,
-            @RequestParam(name = "user_token") String userToken
+            @RequestHeader(name = "Authorization") String userToken
     ) {
-        return flightService.bookFlight(UUID.fromString(flightId), userToken);
+        return flightService.bookFlight(UUID.fromString(flightId), userToken.split(" ")[1]);
     }
 
 
@@ -67,9 +68,9 @@ public class FlightController {
     @PreAuthorize("hasRole('USER')")
     public FlightResponse cancelFlight(
             @PathVariable(name = "flight_id") String flightId,
-            @RequestParam(name = "user_token") String userToken
+            @RequestHeader(name = "Authorization") String userToken
     ) {
-        return flightService.cancelFlight(UUID.fromString(flightId), userToken);
+        return flightService.cancelFlight(UUID.fromString(flightId), userToken.split(" ")[1]);
     }
 
 }

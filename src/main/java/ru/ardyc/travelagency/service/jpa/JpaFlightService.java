@@ -68,6 +68,7 @@ public class JpaFlightService implements FlightService {
         var userId = jwtService.extractUserId(userToken);
         var user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         var flight = flightRepository.findById(flightId).orElseThrow(() -> new RuntimeException("Flight not found"));
+        if (user.getFlights().contains(flight)) return flight.toResponse();
         user.bookFlight(flight);
         userRepository.save(user);
         return flight.toResponse();

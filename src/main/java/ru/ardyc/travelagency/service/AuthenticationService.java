@@ -10,4 +10,6 @@ public interface AuthenticationService {
 
     UserResponse signUp(RegistrationRequest request);
 
+    UserResponse getUser(String token);
+
 }

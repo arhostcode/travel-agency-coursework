@@ -8,6 +8,7 @@ import java.util.UUID;
 @Builder
 public record FlightResponse(
         UUID id,
+        String name,
         String from,
         String to,
         OffsetDateTime startDate,

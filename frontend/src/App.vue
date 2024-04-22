@@ -1,6 +1,5 @@
 <script setup>
 import MenuTravelAgency from "@/components/MenuTravelAgency.vue";
-import TourSearch from "@/components/tour/TourSearch.vue";
 </script>
 
 <template>
@@ -8,7 +7,7 @@ import TourSearch from "@/components/tour/TourSearch.vue";
     <MenuTravelAgency/>
   </header>
   <main>
-    <TourSearch/>
+    <router-view></router-view>
   </main>
 </template>
 

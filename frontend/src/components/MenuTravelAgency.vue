@@ -3,7 +3,7 @@
     <img alt="Logo" class="logo" src="../assets/travel-agency.png" width="50" height="50"/>
     <ul>
       <li v-for="(item, index) in menuItems" :key="index">
-        <a :href="item.link">{{ item.title }}</a>
+        <router-link :to="item.link">{{ item.title }}</router-link>
       </li>
     </ul>
   </div>
@@ -14,11 +14,11 @@ export default {
   data() {
     return {
       menuItems: [
-        { title: 'Home', link: '/' },
-        { title: 'Tours', link: '/tours' },
-        { title: 'Destinations', link: '/destinations' },
-        { title: 'About Us', link: '/about' },
-        { title: 'Contact Us', link: '/contact' }
+        { title: 'Поиск туров', link: '/' },
+        { title: 'Полёты', link: '/flight' },
+        { title: 'Отели', link: '/hotel' },
+        { title: 'Места для туров', link: '/tour-place' },
+        { title: 'Аккаунт', link: '/account' }
       ]
     };
   }

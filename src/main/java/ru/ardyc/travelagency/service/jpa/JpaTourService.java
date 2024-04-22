@@ -1,5 +1,6 @@
 package ru.ardyc.travelagency.service.jpa;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.ardyc.travelagency.domain.model.TourEntity;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class JpaTourService implements TourService {
     private final TourRepository tourRepository;
     private final TourPlaceRepository tourPlaceRepository;
@@ -64,6 +66,7 @@ public class JpaTourService implements TourService {
     public TourResponse bookTour(UUID tourId, String userToken) {
         var tour = tourRepository.findById(tourId).orElseThrow();
         var user = userRepository.findById(jwtService.extractUserId(userToken)).orElseThrow();
+        if (user.getTours().contains(tour)) return tour.toResponse();
         user.bookTour(tour);
         userRepository.save(user);
         return tour.toResponse();

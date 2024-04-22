@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS hotel
 CREATE TABLE IF NOT EXISTS flight
 (
     id          uuid primary key default gen_random_uuid(),
+    name        TEXT             NOT NULL,
     from_place  TEXT             NOT NULL,
     to_place    TEXT             NOT NULL,
     start_date  TIMESTAMP WITH TIME ZONE,

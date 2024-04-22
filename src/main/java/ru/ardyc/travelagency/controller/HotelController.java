@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/hotel")
 public class HotelController {
     private final HotelService hotelService;
@@ -32,18 +33,18 @@ public class HotelController {
     @PreAuthorize("hasRole('USER')")
     public HotelResponse bookHotel(
             @PathVariable(name = "hotel_id") String hotelId,
-            @RequestParam(name = "user_token") String userToken
+            @RequestHeader(name = "Authorization") String userToken
     ) {
-        return hotelService.bookHotel(UUID.fromString(hotelId), userToken);
+        return hotelService.bookHotel(UUID.fromString(hotelId), userToken.split(" ")[1]);
     }
 
     @DeleteMapping("/cancel/{hotel_id}")
     @PreAuthorize("hasRole('USER')")
     public HotelResponse cancelHotel(
             @PathVariable(name = "hotel_id") String hotelId,
-            @RequestParam(name = "user_token") String userToken
+            @RequestHeader(name = "Authorization") String userToken
     ) {
-        return hotelService.cancelHotel(UUID.fromString(hotelId), userToken);
+        return hotelService.cancelHotel(UUID.fromString(hotelId), userToken.split(" ")[1]);
     }
 
     @PostMapping
