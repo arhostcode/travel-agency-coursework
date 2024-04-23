@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     fetchTours() {
-      axios.get('http://localhost:8080/api/v1/tour/list')
+      axios.get(import.meta.env.VITE_API_URL + '/api/v1/tour/list')
           .then(response => {
             this.tours = response.data;
           })
@@ -102,7 +102,7 @@ export default {
           "Authorization": "Bearer " + this.token,
         }
       }
-      axios.post('http://localhost:8080/api/v1/tour/book/' + this.selectedTour.id, {}, config)
+      axios.post(import.meta.env.VITE_API_URL + '/api/v1/tour/book/' + this.selectedTour.id, {}, config)
     }
   }
 };

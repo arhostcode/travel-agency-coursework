@@ -65,7 +65,7 @@ export default {
       switch (type) {
         case 'tour':
           this.bookedTours = this.bookedTours.filter(tour => tour.id !== id);
-          axios.delete('http://localhost:8080/api/v1/tour/cancel/' + id, {
+          axios.delete(import.meta.env.VITE_API_URL + '/api/v1/tour/cancel/' + id, {
             headers: {
               "Authorization": `Bearer ${this.token}`
             }
@@ -73,7 +73,7 @@ export default {
           break;
         case 'hotel':
           this.bookedHotels = this.bookedHotels.filter(hotel => hotel.id !== id);
-          axios.delete('http://localhost:8080/api/v1/hotel/cancel/' + id , {
+          axios.delete(import.meta.env.VITE_API_URL + '/api/v1/hotel/cancel/' + id , {
             headers: {
               "Authorization": `Bearer ${this.token}`
             }
@@ -81,7 +81,7 @@ export default {
           break;
         case 'flight':
           this.bookedFlights = this.bookedFlights.filter(flight => flight.id !== id);
-          axios.delete('http://localhost:8080/api/v1/flight/cancel/' + id , {
+          axios.delete(import.meta.env.VITE_API_URL + '/api/v1/flight/cancel/' + id , {
             headers: {
               "Authorization": `Bearer ${this.token}`
             }
@@ -99,7 +99,7 @@ export default {
       const token = localStorage.getItem('token');
       if (token) {
         axios
-            .get('http://localhost:8080/auth/me', {
+            .get(import.meta.env.VITE_API_URL + '/auth/me', {
               headers: {
                 Authorization: `Bearer ${token}`
               }

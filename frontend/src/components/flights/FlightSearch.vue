@@ -63,7 +63,7 @@ export default {
     searchFlights() {
     },
     fetchFlights() {
-      axios.get('http://localhost:8080/api/v1/flight/list')
+      axios.get(import.meta.env.VITE_API_URL +  `/api/v1/flight/list`)
           .then(response => {
             this.flights = response.data;
             this.searchFlights()

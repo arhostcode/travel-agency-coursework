@@ -26,7 +26,7 @@ export default {
   methods: {
     fetchTouristPlaces() {
       axios
-        .get("http://localhost:8080/api/v1/tour-place/list")
+        .get(import.meta.env.VITE_API_URL + "/api/v1/tour-place/list")
         .then(response => {
           this.touristPlaces = response.data;
         });

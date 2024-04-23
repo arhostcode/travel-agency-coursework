@@ -41,7 +41,7 @@ export default {
     },
     bookHotel(hotel) {
       if (this.token) {
-        axios.post(`http://localhost:8080/api/v1/hotel/book/${hotel.id}`, {}, {
+        axios.post(import.meta.env.VITE_API_URL + `/api/v1/hotel/book/${hotel.id}`, {}, {
           headers: {
             'Authorization': `Bearer ${this.token}`
           }
@@ -52,7 +52,7 @@ export default {
       }
     },
     fetchHotels() {
-      axios.get('http://localhost:8080/api/v1/hotel/list').then(response => {
+      axios.get(import.meta.env.VITE_API_URL + '/api/v1/hotel/list').then(response => {
         this.hotels = response.data
       })
     }

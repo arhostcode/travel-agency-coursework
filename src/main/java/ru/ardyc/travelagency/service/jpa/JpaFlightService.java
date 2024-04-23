@@ -36,13 +36,6 @@ public class JpaFlightService implements FlightService {
     }
 
     @Override
-    public FlightResponse getFlight(UUID flightId) {
-        return flightRepository.findById(flightId)
-                .map(FlightEntity::toResponse)
-                .orElse(null);
-    }
-
-    @Override
     public FlightResponse createFlight(FlightCreateRequest request) {
         var flight = FlightEntity
                 .builder()
@@ -54,6 +47,13 @@ public class JpaFlightService implements FlightService {
                 .build();
         flightRepository.save(flight);
         return flight.toResponse();
+    }
+
+    @Override
+    public FlightResponse getFlight(UUID flightId) {
+        return flightRepository.findById(flightId)
+                .map(FlightEntity::toResponse)
+                .orElse(null);
     }
 
     @Override

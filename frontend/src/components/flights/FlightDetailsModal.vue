@@ -35,7 +35,7 @@ export default {
     book() {
       const token = localStorage.getItem('token');
       if (token) {
-        axios.post("http://localhost:8080/api/v1/flight/book/" + this.flight.id, {}, {
+        axios.post(import.meta.env.VITE_API_URL + "/api/v1/flight/book/" + this.flight.id, {}, {
           headers: {
             Authorization: `Bearer ${token}`
           }

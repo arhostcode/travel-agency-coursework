@@ -61,9 +61,9 @@ export default {
       try {
         let response;
         if (this.isLoginMode) {
-          response = await axios.post('http://localhost:8080/auth/login', authData);
+          response = await axios.post(import.meta.env.VITE_API_URL + '/auth/login', authData);
         } else {
-          response = await axios.post('http://localhost:8080/auth/signup', authData);
+          response = await axios.post(import.meta.env.VITE_API_URL + '/auth/signup', authData);
         }
 
         const token = response.data.jwt_token;

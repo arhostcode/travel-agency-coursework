@@ -1,4 +1,29 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresql
+      - liquibase-migrations
+    environment:
+      - POSTGRES_DB=postgresql
+    networks:
+      - backend_travel_agency
+  frontend:
+    build:
+      context: frontend
+      dockerfile: frontend.Dockerfile
+    ports:
+      - "5173:5173"
+    networks:
+      - backend_travel_agency
+    depends_on:
+      - app
+    environment:
+      - VITE_API_URL=http://localhost:8080
   postgresql:
     image: postgres:16
     ports:
