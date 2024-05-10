@@ -47,7 +47,7 @@ public class HotelController {
         return hotelService.cancelHotel(UUID.fromString(hotelId), userToken.split(" ")[1]);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
     public HotelResponse createHotel(
             @RequestBody HotelCreateRequest request
